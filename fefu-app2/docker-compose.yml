@@ -52,8 +52,6 @@ services:
         networks:
             - sail
 networks:
-    app-tier:
-        driver: bridge
     sail:
         driver: bridge
 volumes:
