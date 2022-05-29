@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\PageWebController;
+use \App\Http\Controllers\NewsWebController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,3 +22,5 @@ Route::get('/', function () {
 
 
 Route::get('/{slug}', PageWebController::class);
+
+Route::get('/news/{slug}', NewsWebController::class);
