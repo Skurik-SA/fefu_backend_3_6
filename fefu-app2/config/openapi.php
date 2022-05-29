@@ -28,6 +28,11 @@ return [
                     'description' => 'News',
                  ],
 
+                 [
+                    'name' => 'page',
+                    'description' => 'Page'
+                 ],
+
             ],
 
             'security' => [
