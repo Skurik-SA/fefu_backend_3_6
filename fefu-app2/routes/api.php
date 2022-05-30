@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\AppealApiController;
 use App\Http\Controllers\Api\NewsApiController;
 use App\Http\Controllers\Api\PageApiController;
 use Illuminate\Http\Request;
@@ -19,6 +20,10 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::apiResource('appeal', AppealApiController::class)->only([
+    'store',
+]);
 
 Route::apiResource('news', NewsApiController::class)->only([
     'index',
