@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Controllers\NewsApiController;
-use App\Http\Controllers\PageApiController;
+use App\Http\Controllers\Api\NewsApiController;
+use App\Http\Controllers\Api\PageApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
