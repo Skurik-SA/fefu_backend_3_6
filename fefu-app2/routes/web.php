@@ -1,8 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use \App\Http\Controllers\PageWebController;
 use \App\Http\Controllers\NewsWebController;
+use \App\Http\Controllers\PageWebController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -19,8 +20,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-
-
+Route::get('/news/{slug}', NewsWebController::class);
 Route::get('/{slug}', PageWebController::class);
 
-Route::get('/news/{slug}', NewsWebController::class);
+
