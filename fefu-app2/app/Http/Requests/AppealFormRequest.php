@@ -25,7 +25,7 @@ class AppealFormRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:100'],
-            'phone' => ['nullable'],
+            'phone' => ['nullable', 'string', 'regex:/(^([+]7|8)+\d{10}$)/i'],
             'email' => ['nullable', 'email:rfc'],
             'message' => ['required', 'string', 'max:1000'],
         ];

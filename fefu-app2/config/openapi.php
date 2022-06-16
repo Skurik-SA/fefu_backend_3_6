@@ -33,6 +33,11 @@ return [
                     'description' => 'Page'
                  ],
 
+                [
+                    'name' => 'appeal',
+                    'description' => 'Appeal'
+                ],
+
             ],
 
             'security' => [
