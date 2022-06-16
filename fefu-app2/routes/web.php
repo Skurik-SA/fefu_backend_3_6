@@ -4,7 +4,6 @@ use App\Http\Controllers\Web\AppealWebController;
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\NewsWebController;
 use \App\Http\Controllers\PageWebController;
-use \App\Http\Controllers\NewsWebController;
 
 
 /*
