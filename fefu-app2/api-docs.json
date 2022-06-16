@@ -153,6 +153,93 @@
                     }
                 }
             }
+        },
+        "\/api\/appeal": {
+            "post": {
+                "tags": [
+                    "appeal"
+                ],
+                "summary": "Save appeal submitted data",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Name",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "maxLength": 100
+                        },
+                        "example": "User_name"
+                    },
+                    {
+                        "name": "phone",
+                        "in": "query",
+                        "description": "Phone",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "+79992221133"
+                    },
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "description": "Email",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "example@gmail.com"
+                    },
+                    {
+                        "name": "message",
+                        "in": "query",
+                        "description": "Message",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "maxLength": 1000
+                        },
+                        "example": "SomeTextHere"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Empty Response"
+                    },
+                    "default": {
+                        "description": "Validation errors",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "object",
+                                            "example": "Invalid Data."
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "additionalProperties": {
+                                                "type": "array",
+                                                "items": {
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "example": {
+                                                "field": [
+                                                    "Something went wrong!"
+                                                ]
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     },
     "components": {
@@ -263,6 +350,10 @@
         {
             "name": "page",
             "description": "Page"
+        },
+        {
+            "name": "appeal",
+            "description": "Appeal"
         }
     ]
 }

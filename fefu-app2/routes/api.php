@@ -1,7 +1,8 @@
 <?php
 
-use App\Http\Controllers\NewsApiController;
-use App\Http\Controllers\PageApiController;
+use App\Http\Controllers\Api\AppealApiController;
+use App\Http\Controllers\Api\NewsApiController;
+use App\Http\Controllers\Api\PageApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -28,4 +29,8 @@ Route::apiResource('news', NewsApiController::class)->only([
 Route::apiResource('page', PageApiController::class)->only([
     'index',
     'show',
+]);
+
+Route::apiResource('appeal', AppealApiController::class)->only([
+    'store',
 ]);

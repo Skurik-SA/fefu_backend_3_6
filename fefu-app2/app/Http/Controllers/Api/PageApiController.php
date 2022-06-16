@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
 use App\Http\Resources\PageResources;
 use Illuminate\Contracts\Support\Responsable;
 use App\Models\Page;

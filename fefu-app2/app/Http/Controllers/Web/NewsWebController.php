@@ -1,8 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Web;
 
+use App\Http\Controllers\Controller;
 use App\Models\News;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 
 class NewsWebController extends Controller
@@ -10,9 +14,9 @@ class NewsWebController extends Controller
     /**
      * Handle the incoming request.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      * @param string $slug
-     * @return void
+     * @return Application|Factory|View
      */
     public function __invoke(Request $request, string $slug)
     {
