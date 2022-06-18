@@ -27,6 +27,12 @@ use Laravel\Sanctum\HasApiTokens;
  * @property \Illuminate\Support\Carbon|null $github_registered_at
  * @property \Illuminate\Support\Carbon|null $app_logged_in_at
  * @property \Illuminate\Support\Carbon|null $app_registered_at
+ * @property string|null $vkontakte_id
+ * @property \Illuminate\Support\Carbon|null $vkontakte_logged_in_at
+ * @property \Illuminate\Support\Carbon|null $vkontakte_registered_at
+ * @property string|null $google_id
+ * @property \Illuminate\Support\Carbon|null $google_logged_in_at
+ * @property \Illuminate\Support\Carbon|null $google_registered_at
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
  * @property-read int|null $notifications_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\Laravel\Sanctum\PersonalAccessToken[] $tokens
@@ -43,11 +49,17 @@ use Laravel\Sanctum\HasApiTokens;
  * @method static \Illuminate\Database\Eloquent\Builder|User whereGithubId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereGithubLoggedInAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereGithubRegisteredAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereGoogleId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereGoogleLoggedInAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereGoogleRegisteredAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User wherePassword($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereRememberToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereVkontakteId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereVkontakteLoggedInAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereVkontakteRegisteredAt($value)
  * @mixin \Eloquent
  */
 class User extends Authenticatable
@@ -69,9 +81,9 @@ class User extends Authenticatable
         'vkontakte_id',
         'vkontakte_logged_in_at',
         'vkontakte_registered_at',
-//        'discord_id',
-//        'discord_logged_in_at',
-//        'discord_registered_at',
+        'google_id',
+        'google_logged_in_at',
+        'google_registered_at',
     ];
 
     /**
@@ -84,7 +96,7 @@ class User extends Authenticatable
         'remember_token',
         'github_id',
         'vkontakte_id',
-//        'discord_id',
+        'google_id',
         'app_logged_in_at',
         'app_registered_at',
     ];
@@ -100,8 +112,8 @@ class User extends Authenticatable
         'github_registered_at' => 'datetime',
         'vkontakte_logged_in_at' => 'datetime',
         'vkontakte_registered_at' => 'datetime',
-//        'discord_logged_in_at' => 'datetime',
-//        'discord_registered_at' => 'datetime',
+        'google_logged_in_at' => 'datetime',
+        'google_registered_at' => 'datetime',
         'app_logged_in_at' => 'datetime',
         'app_registered_at' => 'datetime',
     ];

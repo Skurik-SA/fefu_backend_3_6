@@ -24,6 +24,7 @@ class OAuthController extends Controller
     private const ALLOWED_PROVIDERS =[
         'github',
         'vkontakte',
+        'google',
     ];
 
     /**

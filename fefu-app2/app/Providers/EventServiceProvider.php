@@ -17,7 +17,7 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         \SocialiteProviders\Manager\SocialiteWasCalled::class => [
             \SocialiteProviders\VKontakte\VKontakteExtendSocialite::class.'@handle',
-//            \SocialiteProviders\Discord\DiscordExtendSocialite::class.'@handle',
+            \SocialiteProviders\Google\GoogleExtendSocialite::class.'@handle',
         ],
 
         Registered::class => [

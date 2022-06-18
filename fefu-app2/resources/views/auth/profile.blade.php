@@ -23,10 +23,10 @@
     </label>
 </div>
 <div>
-    <h4>discord:</h4>
+    <h4>Google:</h4>
     <label>
-        <b>Last login date: </b>{{$user['discord_logged_in_at'] ?? 'Never'}}<br/>
-        <b>Registration date: </b>{{$user['discord_registered_at'] ?? 'Never'}}
+        <b>Last login date: </b>{{$user['google_logged_in_at'] ?? 'Never'}}<br/>
+        <b>Registration date: </b>{{$user['google_registered_at'] ?? 'Never'}}
     </label>
 </div>
 <form method="POST" action="{{route('logout')}}">
