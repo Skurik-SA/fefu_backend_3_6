@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginFormRequest;
-use http\Client\Curl\User;
+use App\Http\Requests\RegistrationFormRequest;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -46,8 +47,15 @@ class AuthWebController extends Controller
         return redirect('login');
     }
 
-    public function registration()
+    public function registration(RegistrationFormRequest $request)
     {
+        $data = $request->validated();
 
+        $user = User::createFromRequest($data);
+
+        Auth::login($user);
+        $request->session()->regenerate();
+
+        return redirect(route('profile'));
     }
 }

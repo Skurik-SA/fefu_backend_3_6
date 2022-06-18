@@ -25,7 +25,7 @@
     </div>
     <div>
         <label>Пароль</label>
-        <input type="password" name="message" value="{{old('password')}}" maxlength="2000"/>
+        <input type="password" name="password" value="{{old('password')}}" maxlength="2000"/>
         @error('password')
         <div class="alert alert-danger">{{$message}}</div>
         @enderror

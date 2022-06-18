@@ -10,6 +10,42 @@
         }
     ],
     "paths": {
+        "\/api\/user": {
+            "get": {
+                "tags": [
+                    "auth"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#\/components\/schemas\/User"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "\/api\/logout": {
+            "post": {
+                "tags": [
+                    "auth"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful logout"
+                    }
+                }
+            }
+        },
         "\/api\/news": {
             "get": {
                 "tags": [
@@ -240,6 +276,175 @@
                     }
                 }
             }
+        },
+        "\/api\/login": {
+            "post": {
+                "tags": [
+                    "auth"
+                ],
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "description": "Field with email-address",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "Woof@woof.com"
+                    },
+                    {
+                        "name": "password",
+                        "in": "query",
+                        "description": "Field with password",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "maxLength": 255,
+                            "minLength": 1
+                        },
+                        "example": "woof_2022"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful login",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "access_token": {
+                                            "type": "string",
+                                            "example": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Validation errors",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "object",
+                                            "example": "Invalid Data."
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "additionalProperties": {
+                                                "type": "array",
+                                                "items": {
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "example": {
+                                                "field": [
+                                                    "Something went wrong!"
+                                                ]
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "\/api\/registration": {
+            "post": {
+                "tags": [
+                    "auth"
+                ],
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Field with username",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "maxLength": 255
+                        },
+                        "example": "WoofUser"
+                    },
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "description": "Field with email-address",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "Woof@woof.com"
+                    },
+                    {
+                        "name": "password",
+                        "in": "query",
+                        "description": "Field with password",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "maxLength": 255,
+                            "minLength": 1
+                        },
+                        "example": "woof_2022"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful login",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "access_token": {
+                                            "type": "string",
+                                            "example": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Validation errors",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "object",
+                                            "example": "Invalid Data."
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "additionalProperties": {
+                                                "type": "array",
+                                                "items": {
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "example": {
+                                                "field": [
+                                                    "Something went wrong!"
+                                                ]
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     },
     "components": {
@@ -339,6 +544,29 @@
                         }
                     }
                 }
+            },
+            "User": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "password": {
+                        "type": "string"
+                    },
+                    "created_at": {
+                        "type": "string"
+                    },
+                    "updated_at": {
+                        "type": "string"
+                    }
+                }
             }
         }
     },
@@ -354,6 +582,10 @@
         {
             "name": "appeal",
             "description": "Appeal"
+        },
+        {
+            "name": "auth",
+            "description": "Auth"
         }
     ]
 }

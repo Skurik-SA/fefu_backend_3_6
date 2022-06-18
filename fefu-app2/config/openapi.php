@@ -38,6 +38,11 @@ return [
                     'description' => 'Appeal'
                 ],
 
+                [
+                    'name' => 'auth',
+                    'description' => 'Auth',
+                ],
+
             ],
 
             'security' => [

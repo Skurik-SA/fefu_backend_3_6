@@ -23,6 +23,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/profile', [ProfileController::class, 'show'])->name('profile')->middleware('auth');
+
 Route::get('/login', [AuthWebController::class, 'loginForm'])->name('login');
 Route::post('/login', [AuthWebController::class, 'login'])->name('login.post');
 
@@ -30,8 +32,6 @@ Route::post('/logout', [AuthWebController::class, 'logout'])->name('logout');
 
 Route::get('/registration', [AuthWebController::class, 'registrationForm'])->name('registration');
 Route::post('/registration', [AuthWebController::class, 'registration'])->name('registration.post');
-
-Route::get('/profile', [ProfileController::class, 'show'])->name('profile')->middleware('auth');
 
 Route::get('/appeal', [AppealWebController::class, 'form'])->name('appeal.form');
 Route::post('/appeal', [AppealWebController::class, 'send'])->name('appeal.send');
