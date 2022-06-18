@@ -29,9 +29,11 @@ return new class extends Migration
      */
     public function down()
     {
+
         Schema::table('users', function (Blueprint $table) {
-            $table->string('email')->nullable(false)->change();
-            $table->string('password')->nullable(false)->change();
+            $help = false;
+            $table->string('email')->nullable($help)->change();
+            $table->string('password')->nullable($help)->change();
             $table->dropColumn(['github_id', 'github_logged_in_at', 'github_registered_at']);
         });
     }
