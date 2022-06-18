@@ -73,6 +73,7 @@ class AuthApiController extends Controller
     #[OpenApi\Response(factory: UserLogoutResponse::class, statusCode: 200)]
     public function logout(Request $request)
     {
+        /** @var $user User */
         $user = $request->user();
         $user->currentAccessToken()->delete();
 
