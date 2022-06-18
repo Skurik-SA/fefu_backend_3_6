@@ -43,6 +43,11 @@ return [
                     'description' => 'Auth',
                 ],
 
+                [
+                    'name' => 'catalog',
+                    'description' => 'Catalog',
+                ],
+
             ],
 
             'security' => [

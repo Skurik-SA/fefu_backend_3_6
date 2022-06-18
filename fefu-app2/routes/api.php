@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\AppealApiController;
 use App\Http\Controllers\Api\AuthApiController;
+use App\Http\Controllers\Api\CatalogApiController;
 use App\Http\Controllers\Api\NewsApiController;
 use App\Http\Controllers\Api\PageApiController;
 use Illuminate\Http\Request;
@@ -39,6 +40,11 @@ Route::apiResource('page', PageApiController::class)->only([
 
 Route::apiResource('appeal', AppealApiController::class)->only([
     'store',
+]);
+
+Route::apiResource('categories', CatalogApiController::class)->only([
+    'index',
+    'show',
 ]);
 
 Route::post('login', [AuthApiController::class, 'login']);
