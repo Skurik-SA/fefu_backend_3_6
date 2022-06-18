@@ -18,7 +18,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property string $message
  * @property int|null $user_id
  * @property-read \App\Models\User|null $user
- * @method static \Database\Factories\AppealFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|Appeal newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Appeal newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Appeal query()
