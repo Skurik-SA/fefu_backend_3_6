@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginFormRequest;
 use App\Http\Requests\RegistrationFormRequest;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -44,6 +45,10 @@ class AuthWebController extends Controller
         {
             $request->session()->regenerate();
 
+            $user = Auth::user();
+            $user->app_logged_in_at = Carbon::now();
+            $user->save();
+
             return redirect('profile');
         }
 
@@ -74,7 +79,15 @@ class AuthWebController extends Controller
     {
         $data = $request->validated();
 
-        $user = User::createFromRequest($data);
+        $user = User::query()->where('email', $data['email'])->first();
+        if ($user)
+        {
+            $user = User::changeFromRequest($user, $data);
+        }
+        else
+        {
+            $user = User::createFromRequest($data);
+        }
 
         Auth::login($user);
         $request->session()->regenerate();
