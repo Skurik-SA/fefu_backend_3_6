@@ -24,6 +24,7 @@ class CatalogController extends Controller
      */
     public function index(CatalogFormRequest $request, string $slug = null)
     {
+        $requestData = $request->validated();
         $query = ProductCategory::query()->with('children', 'products');
 //        $query = ProductCategory::query()->with('children');
 
@@ -36,28 +37,28 @@ class CatalogController extends Controller
         $categories = $query->get();
 
         try{
-            $productQuery = ProductCategory::getTreeProductsBuilder($categories);
+            $products = ProductCategory::getTreeProductsBuilder($categories);
         }catch(Exception $exception) {
             abort(422, $exception->getMessage());
         }
 
-        $filters = ProductFilter::build($productQuery, $request->input('filters') ?? []);
-        ProductFilter::apply($productQuery, $request->input('filters') ?? []);
+        $filters = ProductFilter::build($products, $requestData['filters'] ?? []);
+        ProductFilter::apply($products, $requestData['filters'] ?? []);
 
-        if ($request->has('search_query') && $request->input('search_query') !== null) {
-            $productQuery->search($request->input('search_query'));
+        if (isset($requestData['search_query'])) {
+            $products->search($requestData['search_query']);
         }
 
-        if ($request->input('sort_mode') == 'price_asc') {
-            $productQuery->orderBy('price');
-        } else if ($request->input('sort_mode') == 'price_desc') {
-            $productQuery->orderBy('price', 'desc');
+        $sortMode = $requestData['sort_mode'] ?? null;
+        if ($sortMode === 'price_asc') {
+            $products->orderBy('price');
+        } else if ($sortMode === 'price_desc') {
+            $products->orderBy('price', 'desc');
         }
 
         return view('catalog.catalog', [
             'categories' => $categories,
-            'products' => $productQuery->orderBy('products.id')->paginate(self::PER_PAGE),
-            'filters' => $filters
-        ]);
+            'products' => $products->orderBy('products.id')->paginate(10),
+            'filters' => $filters,]);
     }
 }
