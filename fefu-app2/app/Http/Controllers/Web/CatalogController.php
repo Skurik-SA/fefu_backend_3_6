@@ -13,6 +13,8 @@ use Exception;
 
 class CatalogController extends Controller
 {
+    const B_PAGES = 10;
+
     /**
      * Display a listing of the resource.
      *
@@ -55,7 +57,7 @@ class CatalogController extends Controller
 
         return view('catalog.catalog', [
             'categories' => $categories,
-            'products' => $products->orderBy('products.id')->paginate(10),
+            'products' => $products->orderBy('products.id')->paginate(self::B_PAGES),
             'filters' => $filters,]);
     }
 }

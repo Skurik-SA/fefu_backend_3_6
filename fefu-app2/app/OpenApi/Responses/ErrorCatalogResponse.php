@@ -19,7 +19,7 @@ class ErrorCatalogResponse extends ResponseFactory
             Schema::string('errors')->example('error category'),
         );
 
-        return Response::create('Errorcategory')
+        return Response::create('Error_category')
             ->description('Category error')
             ->content(
                 MediaType::json()->schema($response)

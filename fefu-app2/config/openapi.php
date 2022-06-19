@@ -9,7 +9,7 @@ return [
             'info' => [
                 'title' => config('app.name'),
                 'description' => null,
-                'version' => '0.0.1',
+                'version' => '9.1.1',
                 'contact' => [],
             ],
 
