@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\AuthApiController;
 use App\Http\Controllers\Api\CatalogApiController;
 use App\Http\Controllers\Api\NewsApiController;
 use App\Http\Controllers\Api\PageApiController;
+use App\Http\Controllers\Api\ProductApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -28,6 +29,11 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('logout', [AuthApiController::class,'logout']);
 });
 
+Route::prefix('catalog')->group(function () {
+    Route::get('product/list', [ProductApiController::class, 'index']);
+    Route::get('product/details', [ProductApiController::class, 'show']);
+});
+
 Route::apiResource('news', NewsApiController::class)->only([
     'index',
     'show',
@@ -42,7 +48,7 @@ Route::apiResource('appeal', AppealApiController::class)->only([
     'store',
 ]);
 
-Route::apiResource('categories', CatalogApiController::class)->only([
+Route::apiResource('catalog', CatalogApiController::class)->only([
     'index',
     'show',
 ]);

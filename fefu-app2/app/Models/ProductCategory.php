@@ -45,6 +45,9 @@ class ProductCategory extends Model
         'name', 'slug', 'parent_id'
     ];
 
+    /**
+     * @return string[]
+     */
     public function sluggable(): array
     {
         return [
@@ -54,16 +57,27 @@ class ProductCategory extends Model
         ];
     }
 
+    /**
+     * @return HasMany
+     */
     public function children(): HasMany
     {
         return $this->hasMany(self::class, 'parent_id');
     }
 
+    /**
+     * @return HasMany
+     */
     public function products(): HasMany
     {
         return $this->hasMany(Product::class);
     }
 
+    /**
+     * @param Collection $categories
+     * @return Builder
+     * @throws Exception
+     */
     public static function getTreeProductsBuilder(Collection $categories): Builder
     {
         $categoryIds = [];
