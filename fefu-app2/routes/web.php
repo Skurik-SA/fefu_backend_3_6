@@ -6,6 +6,7 @@ use App\Http\Controllers\Web\CatalogController;
 use App\Http\Controllers\Web\NewsWebController;
 use App\Http\Controllers\Web\OAuthController;
 use App\Http\Controllers\Web\PageWebController;
+use App\Http\Controllers\Web\ProductWebController;
 use App\Http\Controllers\Web\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -25,6 +26,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('catalog/product/{slug}', [ProductWebController::class, 'index'])->name('product');
 Route::get('catalog/{slug?}', [CatalogController::class, 'index'])->name('catalog');
 
 Route::prefix('oauth')->group(function () {
