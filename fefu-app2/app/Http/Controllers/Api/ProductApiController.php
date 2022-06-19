@@ -2,12 +2,9 @@
 
 namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
-use App\Http\Filters\ProductFilter;
-use App\Http\Requests\CatalogApiRequest;
 use App\Http\Resources\ListProductResource;
 use App\Http\Resources\DetailedProductResource;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Http\Response;
 use Vyuldashev\LaravelOpenApi\Attributes as OpenApi;
 use App\OpenApi\Parameters\ProductsListParameters;
 use App\OpenApi\Parameters\ProductDetailsParameters;
@@ -20,13 +17,17 @@ use App\Models\Product;
 use App\OpenApi\Responses\ErrorCatalogResponse;
 use App\OpenApi\Responses\ProductResponse;
 use App\OpenApi\Responses\NotFoundResponse;
+use App\Http\Requests\CatalogApiRequest;
+use App\Http\Filters\ProductFilter;
 
 #[OpenApi\PathItem]
 class ProductApiController extends Controller
 {
     /**
-     * @param Request $request
-     * @return JsonResponse|AnonymousResourceCollection
+     * Returning a list of products by slug.
+     *
+     * @param CatalogApiRequest $request
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\Resources\Json\AnonymousResourceCollection|\Illuminate\Http\Responseble
      */
     #[OpenApi\Operation(tags: ["catalog"])]
     #[OpenApi\Response(factory: ProductsListResponse::class, statusCode: 200)]
@@ -73,10 +74,10 @@ class ProductApiController extends Controller
             $products->orderBy('products.id')->paginate()
         );
     }
-
     /**
-     * @param Request $request
-     * @return DetailedProductResource
+     * Returning a product resource by the requested slug
+     *
+     * @return DetailedProductResource|Response
      */
     #[OpenApi\Operation(tags: ["catalog"])]
     #[OpenApi\Response(factory: ProductResponse::class, statusCode: 200)]

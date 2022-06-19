@@ -63,7 +63,6 @@ class Product extends Model
     {
         return $this->belongsTo(ProductCategory::class);
     }
-
     public function attributeValues(): HasMany
     {
         return $this->hasMany(ProductAttributeValue::class);
