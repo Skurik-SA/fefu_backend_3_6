@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
-use App\Http\Filters\ProductFilter;
-use App\Http\Requests\CatalogApiRequest;
 use App\Http\Resources\ListProductResource;
 use App\Http\Resources\DetailedProductResource;
 use Illuminate\Http\Response;
