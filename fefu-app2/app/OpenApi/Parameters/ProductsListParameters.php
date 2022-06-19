@@ -30,7 +30,7 @@ class ProductsListParameters extends ParametersFactory {
                 ->schema(Schema::array()),
             Parameter::query()
                 ->name('filters.*')
-                ->required(true)
+                ->required(false)
                 ->schema(Schema::array()),
         ];
     }

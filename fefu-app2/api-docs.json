@@ -6,7 +6,7 @@
     },
     "servers": [
         {
-            "url": "http:\/\/LenBackEnd.test"
+            "url": "http:\/\/fefu-app2.test"
         }
     ],
     "paths": {
@@ -15,7 +15,6 @@
                 "tags": [
                     "auth"
                 ],
-                "summary": "Display user data.",
                 "responses": {
                     "200": {
                         "description": "Successful response",
@@ -40,10 +39,9 @@
                 "tags": [
                     "auth"
                 ],
-                "summary": "Save appeal submitted data",
                 "responses": {
                     "200": {
-                        "description": "Successfully logged out"
+                        "description": "Successful logout"
                     }
                 }
             }
@@ -90,7 +88,7 @@
                     {
                         "name": "filters.*",
                         "in": "query",
-                        "required": true,
+                        "required": false,
                         "schema": {
                             "type": "array"
                         }
@@ -185,249 +183,6 @@
                 }
             }
         },
-        "\/api\/login": {
-            "post": {
-                "tags": [
-                    "auth"
-                ],
-                "summary": "Save appeal submitted data",
-                "parameters": [
-                    {
-                        "name": "email",
-                        "in": "query",
-                        "description": "Email",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        },
-                        "example": "slava@mail.ru"
-                    },
-                    {
-                        "name": "password",
-                        "in": "query",
-                        "description": "Password",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "maxLength": 255,
-                            "minLength": 1
-                        },
-                        "example": "Slava"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Login successful",
-                        "content": {
-                            "application\/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "access_token": {
-                                            "type": "string",
-                                            "example": "string"
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    "422": {
-                        "$ref": "#\/components\/responses\/ErrorValidation"
-                    }
-                }
-            }
-        },
-        "\/api\/register": {
-            "post": {
-                "tags": [
-                    "auth"
-                ],
-                "summary": "Save appeal submitted data",
-                "parameters": [
-                    {
-                        "name": "name",
-                        "in": "query",
-                        "description": "Name",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "maxLength": 255
-                        },
-                        "example": "Slava user"
-                    },
-                    {
-                        "name": "email",
-                        "in": "query",
-                        "description": "Email",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        },
-                        "example": "slava@mail.ru"
-                    },
-                    {
-                        "name": "password",
-                        "in": "query",
-                        "description": "Password",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "maxLength": 255,
-                            "minLength": 1
-                        },
-                        "example": "Slava"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Login successful",
-                        "content": {
-                            "application\/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "access_token": {
-                                            "type": "string",
-                                            "example": "string"
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    "422": {
-                        "$ref": "#\/components\/responses\/ErrorValidation"
-                    }
-                }
-            }
-        },
-        "\/api\/catalog": {
-            "get": {
-                "tags": [
-                    "catalog"
-                ],
-                "summary": "Display a listing of the resource.",
-                "responses": {
-                    "200": {
-                        "description": "Successful response",
-                        "content": {
-                            "application\/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "data": {
-                                            "type": "array",
-                                            "items": {
-                                                "$ref": "#\/components\/schemas\/ProductCategory"
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "\/api\/catalog\/{catalog}": {
-            "get": {
-                "tags": [
-                    "catalog"
-                ],
-                "summary": "Display the specified resource.",
-                "parameters": [
-                    {
-                        "name": "catalog",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Successful response",
-                        "content": {
-                            "application\/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "data": {
-                                            "$ref": "#\/components\/schemas\/ProductCategory"
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Not found"
-                    }
-                }
-            }
-        },
-        "\/api\/appeal": {
-            "post": {
-                "tags": [
-                    "appeal"
-                ],
-                "summary": "Save appeal submitted data",
-                "parameters": [
-                    {
-                        "name": "name",
-                        "in": "query",
-                        "description": "Name",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "maxLength": 100
-                        },
-                        "example": "Slava user"
-                    },
-                    {
-                        "name": "phone",
-                        "in": "query",
-                        "description": "Phone",
-                        "required": false,
-                        "schema": {
-                            "type": "string"
-                        },
-                        "example": "+79622201732"
-                    },
-                    {
-                        "name": "email",
-                        "in": "query",
-                        "description": "Email",
-                        "required": false,
-                        "schema": {
-                            "type": "string"
-                        },
-                        "example": "slava@mail.ru"
-                    },
-                    {
-                        "name": "message",
-                        "in": "query",
-                        "description": "Message",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "maxLength": 1000
-                        },
-                        "example": "Message"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Empty Response"
-                    },
-                    "422": {
-                        "$ref": "#\/components\/responses\/ErrorValidation"
-                    }
-                }
-            }
-        },
         "\/api\/news": {
             "get": {
                 "tags": [
@@ -500,7 +255,7 @@
                 }
             }
         },
-        "\/api\/pages": {
+        "\/api\/page": {
             "get": {
                 "tags": [
                     "page"
@@ -534,7 +289,7 @@
                 }
             }
         },
-        "\/api\/pages\/{page}": {
+        "\/api\/page\/{page}": {
             "get": {
                 "tags": [
                     "page"
@@ -571,10 +326,379 @@
                     }
                 }
             }
+        },
+        "\/api\/appeal": {
+            "post": {
+                "tags": [
+                    "appeal"
+                ],
+                "summary": "Save appeal submitted data",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Name",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "maxLength": 100
+                        },
+                        "example": "User_name"
+                    },
+                    {
+                        "name": "phone",
+                        "in": "query",
+                        "description": "Phone",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "+79992221133"
+                    },
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "description": "Email",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "example@gmail.com"
+                    },
+                    {
+                        "name": "message",
+                        "in": "query",
+                        "description": "Message",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "maxLength": 1000
+                        },
+                        "example": "SomeTextHere"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Empty Response"
+                    },
+                    "default": {
+                        "description": "Validation errors",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "object",
+                                            "example": "Invalid Data."
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "additionalProperties": {
+                                                "type": "array",
+                                                "items": {
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "example": {
+                                                "field": [
+                                                    "Something went wrong!"
+                                                ]
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "\/api\/catalog": {
+            "get": {
+                "tags": [
+                    "catalog"
+                ],
+                "summary": "Display a listing of the resource.",
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#\/components\/schemas\/ProductCategory"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "\/api\/catalog\/{catalog}": {
+            "get": {
+                "tags": [
+                    "catalog"
+                ],
+                "summary": "Display the specified resource.",
+                "parameters": [
+                    {
+                        "name": "catalog",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#\/components\/schemas\/ProductCategory"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                }
+            }
+        },
+        "\/api\/login": {
+            "post": {
+                "tags": [
+                    "auth"
+                ],
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "description": "Field with email-address",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "Woof@woof.com"
+                    },
+                    {
+                        "name": "password",
+                        "in": "query",
+                        "description": "Field with password",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "maxLength": 255,
+                            "minLength": 1
+                        },
+                        "example": "woof_2022"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful login",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "access_token": {
+                                            "type": "string",
+                                            "example": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Validation errors",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "object",
+                                            "example": "Invalid Data."
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "additionalProperties": {
+                                                "type": "array",
+                                                "items": {
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "example": {
+                                                "field": [
+                                                    "Something went wrong!"
+                                                ]
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "\/api\/registration": {
+            "post": {
+                "tags": [
+                    "auth"
+                ],
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Field with username",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "maxLength": 255
+                        },
+                        "example": "WoofUser"
+                    },
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "description": "Field with email-address",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "Woof@woof.com"
+                    },
+                    {
+                        "name": "password",
+                        "in": "query",
+                        "description": "Field with password",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "maxLength": 255,
+                            "minLength": 1
+                        },
+                        "example": "woof_2022"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful login",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "access_token": {
+                                            "type": "string",
+                                            "example": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Validation errors",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "object",
+                                            "example": "Invalid Data."
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "additionalProperties": {
+                                                "type": "array",
+                                                "items": {
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "example": {
+                                                "field": [
+                                                    "Something went wrong!"
+                                                ]
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     },
     "components": {
         "schemas": {
+            "ProductCategory": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "slug": {
+                        "type": "string"
+                    },
+                    "parent_id": {
+                        "type": "string"
+                    }
+                }
+            },
+            "Product": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "slug": {
+                        "type": "string"
+                    },
+                    "price": {
+                        "format": "double",
+                        "type": "number"
+                    }
+                }
+            },
+            "News": {
+                "type": "object",
+                "properties": {
+                    "title": {
+                        "type": "string"
+                    },
+                    "slug": {
+                        "type": "string"
+                    },
+                    "text": {
+                        "type": "string"
+                    },
+                    "published_at": {
+                        "format": "date-time",
+                        "type": "string"
+                    }
+                }
+            },
             "Page": {
                 "type": "object",
                 "properties": {
@@ -586,6 +710,25 @@
                     },
                     "text": {
                         "type": "string"
+                    }
+                }
+            },
+            "PaginatorLinks": {
+                "type": "object",
+                "properties": {
+                    "first": {
+                        "type": "string"
+                    },
+                    "last": {
+                        "type": "string"
+                    },
+                    "prev": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "next": {
+                        "type": "string",
+                        "nullable": true
                     }
                 }
             },
@@ -634,72 +777,6 @@
                     }
                 }
             },
-            "News": {
-                "type": "object",
-                "properties": {
-                    "title": {
-                        "type": "string"
-                    },
-                    "slug": {
-                        "type": "string"
-                    },
-                    "text": {
-                        "type": "string"
-                    },
-                    "published_at": {
-                        "format": "date-time",
-                        "type": "string"
-                    }
-                }
-            },
-            "ProductCategory": {
-                "type": "object",
-                "properties": {
-                    "name": {
-                        "type": "string"
-                    },
-                    "slug": {
-                        "type": "string"
-                    },
-                    "parent_id": {
-                        "type": "string"
-                    }
-                }
-            },
-            "Product": {
-                "type": "object",
-                "properties": {
-                    "name": {
-                        "type": "string"
-                    },
-                    "slug": {
-                        "type": "string"
-                    },
-                    "price": {
-                        "format": "double",
-                        "type": "number"
-                    }
-                }
-            },
-            "PaginatorLinks": {
-                "type": "object",
-                "properties": {
-                    "first": {
-                        "type": "string"
-                    },
-                    "last": {
-                        "type": "string"
-                    },
-                    "prev": {
-                        "type": "string",
-                        "nullable": true
-                    },
-                    "next": {
-                        "type": "string",
-                        "nullable": true
-                    }
-                }
-            },
             "User": {
                 "type": "object",
                 "properties": {
@@ -716,44 +793,10 @@
                         "type": "string"
                     },
                     "created_at": {
-                        "format": "date-time",
                         "type": "string"
                     },
                     "updated_at": {
-                        "format": "date-time",
                         "type": "string"
-                    }
-                }
-            }
-        },
-        "responses": {
-            "ErrorValidation": {
-                "description": "Validation errors",
-                "content": {
-                    "application\/json": {
-                        "schema": {
-                            "type": "object",
-                            "properties": {
-                                "message": {
-                                    "type": "string",
-                                    "example": "The given data was invalid."
-                                },
-                                "errors": {
-                                    "type": "object",
-                                    "additionalProperties": {
-                                        "type": "array",
-                                        "items": {
-                                            "type": "string"
-                                        }
-                                    },
-                                    "example": {
-                                        "field": [
-                                            "Something is wrong with this field!"
-                                        ]
-                                    }
-                                }
-                            }
-                        }
                     }
                 }
             }
