@@ -9,7 +9,26 @@
 </head>
 <body>
 <div>
-    <a href="/catalog">Catalog</a>
+    <form action="{{route('catalog')}}" method="GET">
+        <input type="text" name="search_query" value="{{request('search_query')}}">
+        <select name="sort_mode" id="sort_mode">
+            <option value="price_asc" {{request('sort_mode') == 'price_asc' ? 'selected' : ''}}>Price asc</option>
+            <option value="price_desc" {{request('sort_mode') == 'price_desc' ? 'selected' : ''}}>Price desc</option>
+        </select>
+        @foreach($filters as $filter)
+            <h4>{{ $filter->name }}</h4>
+            @foreach($filter->options as $option)
+                <div>
+                    <label>
+                        <input type="checkbox" value="{{ $option->value }}" name="filters[{{ $filter->key }}][]"
+                            {{ $option->isSelected ? 'checked' : '' }}>
+                        {{ $option->value }} ({{ $option->productCount }})
+                    </label>
+                </div>
+            @endforeach
+        @endforeach
+        <button>Apply</button>
+    </form>
     @include('catalog.catalog_list', ['categories', $categories])
     @foreach ($products as $product)
         <article>
