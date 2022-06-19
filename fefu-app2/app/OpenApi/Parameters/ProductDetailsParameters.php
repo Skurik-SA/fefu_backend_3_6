@@ -3,7 +3,7 @@
 namespace App\OpenApi\Parameters;
 
 use GoldSpecDigital\ObjectOrientedOAS\Objects\Parameter;
-use GoldSpecDigital\ObjectOrientedOAS\Objects\Schema as ObjectsSchema;
+use GoldSpecDigital\ObjectOrientedOAS\Objects\Schema;
 use Vyuldashev\LaravelOpenApi\Factories\ParametersFactory;
 
 class ProductDetailsParameters extends ParametersFactory {
@@ -15,7 +15,7 @@ class ProductDetailsParameters extends ParametersFactory {
             Parameter::query()
                 ->name('product_slug')
                 ->required(true)
-                ->schema(ObjectsSchema::string()),
+                ->schema(Schema::string()),
         ];
     }
 }

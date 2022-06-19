@@ -6,7 +6,7 @@ use GoldSpecDigital\ObjectOrientedOAS\Objects\Response;
 use Vyuldashev\LaravelOpenApi\Factories\ResponseFactory;
 use GoldSpecDigital\ObjectOrientedOAS\Objects\MediaType;
 use App\OpenApi\Schemas\ListProductSchema ;
-use GoldSpecDigital\ObjectOrientedOAS\Objects\Schema as ObjectsSchema;
+use GoldSpecDigital\ObjectOrientedOAS\Objects\Schema;
 use App\OpenApi\Schemas\PaginatorLinksSchema;
 use App\OpenApi\Schemas\PaginatorMetaSchema;
 
@@ -19,8 +19,8 @@ class ProductsListResponse extends ResponseFactory
     {
         return Response::ok()->description('Successful response')->content(
             MediaType::json()->schema(
-                ObjectsSchema::object()->properties(
-                    ObjectsSchema::array('data')->items(ListProductSchema::ref()),
+                Schema::object()->properties(
+                    Schema::array('data')->items(ListProductSchema::ref()),
                     PaginatorLinksSchema::ref('links'),
                     PaginatorMetaSchema::ref('meta'),
                 )

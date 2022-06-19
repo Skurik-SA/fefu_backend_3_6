@@ -55,9 +55,41 @@
                     {
                         "name": "category_slug",
                         "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "search_query",
+                        "in": "query",
                         "required": false,
                         "schema": {
                             "type": "string"
+                        }
+                    },
+                    {
+                        "name": "sort_mode",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "filters",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "array"
+                        }
+                    },
+                    {
+                        "name": "filters.*",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "array"
                         }
                     }
                 ],

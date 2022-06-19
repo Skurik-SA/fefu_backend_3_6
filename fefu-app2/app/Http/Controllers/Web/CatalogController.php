@@ -24,8 +24,8 @@ class CatalogController extends Controller
      */
     public function index(CatalogFormRequest $request, string $slug = null)
     {
-//        $query = ProductCategory::query()->with('children', 'products');
-        $query = ProductCategory::query()->with('children');
+        $query = ProductCategory::query()->with('children', 'products');
+//        $query = ProductCategory::query()->with('children');
 
         if ($slug === null) {
             $query->where('parent_id');
