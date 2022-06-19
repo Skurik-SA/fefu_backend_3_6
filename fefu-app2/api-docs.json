@@ -46,6 +46,109 @@
                 }
             }
         },
+        "\/api\/catalog\/product\/list": {
+            "get": {
+                "tags": [
+                    "catalog"
+                ],
+                "parameters": [
+                    {
+                        "name": "category_slug",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#\/components\/schemas\/Product"
+                                            }
+                                        },
+                                        "links": {
+                                            "$ref": "#\/components\/schemas\/PaginatorLinks"
+                                        },
+                                        "meta": {
+                                            "$ref": "#\/components\/schemas\/PaginatorMeta"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Category error",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Error"
+                                        },
+                                        "errors": {
+                                            "type": "string",
+                                            "example": "error category"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "\/api\/catalog\/product\/details": {
+            "get": {
+                "tags": [
+                    "catalog"
+                ],
+                "parameters": [
+                    {
+                        "name": "product_slug",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#\/components\/schemas\/Product"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                }
+            }
+        },
         "\/api\/news": {
             "get": {
                 "tags": [
@@ -526,6 +629,21 @@
                     },
                     "parent_id": {
                         "type": "string"
+                    }
+                }
+            },
+            "Product": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "slug": {
+                        "type": "string"
+                    },
+                    "price": {
+                        "format": "double",
+                        "type": "number"
                     }
                 }
             },
