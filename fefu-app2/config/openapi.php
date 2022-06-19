@@ -53,6 +53,11 @@ return [
                     'description' => 'Product',
                 ],
 
+                [
+                    'name' => 'cart',
+                    'description' => 'Cart',
+                ],
+
             ],
 
             'security' => [
