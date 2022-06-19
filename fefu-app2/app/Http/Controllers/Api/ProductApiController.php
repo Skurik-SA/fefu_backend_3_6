@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
+use App\Http\Filters\ProductFilter;
+use App\Http\Requests\CatalogApiRequest;
 use App\Http\Resources\ListProductResource;
 use App\Http\Resources\DetailedProductResource;
 use Illuminate\Http\JsonResponse;
@@ -33,6 +35,7 @@ class ProductApiController extends Controller
     public function index(CatalogApiRequest $request) {
         $requestData = $request->validated();;
         $slug = $requestData['category_slug'];
+
         $query = ProductCategory::query()->with('children', 'products');
 
         if ($slug === null) {
@@ -44,9 +47,7 @@ class ProductApiController extends Controller
         $categories = $query->get();
 
         try{
-            $products = ProductCategory::getTreeProductsBuilder($categories)
-                ->orderBy('id')
-                ->paginate();
+            $products = ProductCategory::getTreeProductsBuilder($categories);
         }catch(Exception $exception) {
             return response()->json([
                 'message' => 'Error',
@@ -54,7 +55,23 @@ class ProductApiController extends Controller
             ], 422);
         }
 
-        return ListProductResource::collection($products);
+        $appliedFilters = $requestData['filters'] ?? [];
+        ProductFilter::apply($products, $appliedFilters);
+
+        if (isset($requestData['search_query'])) {
+            $products->search($requestData['search_query']);
+        }
+
+        $sortMode = $requestData['sort_mode'] ?? null;
+        if ($sortMode === 'price_asc') {
+            $products->orderBy('price');
+        } else if ($sortMode === 'price_desc') {
+            $products->orderBy('price', 'desc');
+        }
+
+        return ListProductResource::collection(
+            $products->orderBy('products.id')->paginate()
+        );
     }
 
     /**

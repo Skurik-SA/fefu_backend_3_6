@@ -3,14 +3,14 @@
 namespace App\Http\Filters;
 
 use App\Models\ProductAttribute;
-use App\Models\ProductAttributeValue;
 use Illuminate\Database\Eloquent\Builder;
+use App\Models\ProductAttributeValue;
 use Illuminate\Database\Query\JoinClause;
+use SebastianBergmann\CodeCoverage\Driver\Selector;
 
 class ProductFilter
 {
     private const KEY_PREFIX = 'top';
-
     public string $key;
     public string $name;
     public int $type;
@@ -24,13 +24,11 @@ class ProductFilter
         $this->options = $options;
     }
 
-    private static function makeKey(ProductAttribute $attribute): string
-    {
+    private static function makeKey(ProductAttribute $attribute): string{
         return self::KEY_PREFIX . $attribute->id;
     }
 
-    public static function build(Builder $productQuery,  array $appliedFilters): array
-    {
+    public static function build(Builder $productQuery, array $appliedFilters): array{
         $attributes = ProductAttribute::get();
 
         $productIdsQuery = (clone $productQuery)->select('products.id');
@@ -44,29 +42,29 @@ class ProductFilter
             ->get();
 
         $attributeValuesByAttrId = [];
-        foreach ($attributeValues as $attributeValue) {
+        foreach ($attributeValues as $attributeValue){
             $attributeValuesByAttrId[$attributeValue->product_attribute_id][] = $attributeValue;
         }
 
         $filters = [];
-        foreach ($attributes as $attribute) {
+        foreach ($attributes as $attribute){
             if (isset($attributeValuesByAttrId[$attribute->id])) {
                 $key = self::makeKey($attribute);
 
                 $options = [];
-                foreach ($attributeValuesByAttrId[$attribute->id] as $item) {
+                foreach ($attributeValuesByAttrId[$attribute->id] as $item){
                     $isSelected = false;
-                    if (isset($appliedFilters[$key]) && in_array($item->value, $appliedFilters[$key])) {
+                    if (isset($appliedFilters[$key]) && in_array($item->value, $appliedFilters[$key])){
                         $isSelected = true;
                     }
                     $options[] = new ProductFilterOption($item->value, $isSelected, $item->product_count);
                 }
 
                 $filters[] = new ProductFilter(
-                    $key,
+                    self::makeKey($attribute),
                     $attribute->name,
                     (int)$attribute->type,
-                    $options
+                    $options,
                 );
             }
         }
@@ -74,30 +72,27 @@ class ProductFilter
         return $filters;
     }
 
-    public static function apply(Builder $productQuery, array $appliedFilters): void
-    {
+    public static function apply(Builder $productQuery, array $appliedFilters): void{
         $attributeByKey = [];
-        foreach (ProductAttribute::get() as $item) {
+        foreach (ProductAttribute::get() as $item){
             $attributeByKey[self::makeKey($item)] = $item;
         }
 
         foreach ($appliedFilters as $key => $values) {
             $attribute = $attributeByKey[$key] ?? null;
-            if ($attribute == null) {
+            if ($attribute === null){
                 continue;
             }
 
-            if (count($values) > 0) {
+            if (count($values) > 0){
                 $productQuery
-                    ->whereIn("$key.value", $values)
                     ->join(
-                        "product_attribute_values as $key",
-                        function (JoinClause $clause) use ($attribute, $key): void
-                        {
-                            $clause->on("$key.product_id", '=', 'products.id')
-                                ->where("$key.product_attribute_id", $attribute->id);
-                        }
-                    );
+                        "product_attribute_values",
+                        function(JoinClause $clause) use ($attribute, $values): void {
+                            $clause->on("product_id", '=', 'products.id')
+                                ->where("product_attribute_id", $attribute->id)
+                                ->whereIn("value", $values);
+                        });
             }
         }
     }
