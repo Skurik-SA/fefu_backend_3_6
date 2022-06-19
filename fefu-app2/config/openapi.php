@@ -48,6 +48,11 @@ return [
                     'description' => 'Catalog',
                 ],
 
+                [
+                    'name' => 'product',
+                    'description' => 'Product',
+                ],
+
             ],
 
             'security' => [

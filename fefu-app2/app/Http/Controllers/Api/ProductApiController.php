@@ -29,7 +29,7 @@ class ProductApiController extends Controller
      * @param CatalogApiRequest $request
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\Resources\Json\AnonymousResourceCollection|\Illuminate\Http\Responseble
      */
-    #[OpenApi\Operation(tags: ["catalog"])]
+    #[OpenApi\Operation(tags: ["product"])]
     #[OpenApi\Response(factory: ProductsListResponse::class, statusCode: 200)]
     #[OpenApi\Response(factory: ErrorCatalogResponse::class, statusCode: 422)]
     #[OpenApi\Parameters(factory: ProductsListParameters::class)]
@@ -79,7 +79,7 @@ class ProductApiController extends Controller
      *
      * @return DetailedProductResource|Response
      */
-    #[OpenApi\Operation(tags: ["catalog"])]
+    #[OpenApi\Operation(tags: ["product"])]
     #[OpenApi\Response(factory: ProductResponse::class, statusCode: 200)]
     #[OpenApi\Response(factory: NotFoundResponse::class, statusCode: 404)]
     #[OpenApi\Parameters(factory: ProductDetailsParameters::class)]

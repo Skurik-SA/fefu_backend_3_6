@@ -49,7 +49,7 @@
         "\/api\/catalog\/product\/list": {
             "get": {
                 "tags": [
-                    "catalog"
+                    "product"
                 ],
                 "summary": "Returning a list of products by slug.",
                 "parameters": [
@@ -145,7 +145,7 @@
         "\/api\/catalog\/product\/details": {
             "get": {
                 "tags": [
-                    "catalog"
+                    "product"
                 ],
                 "summary": "Returning a product resource by the requested slug",
                 "parameters": [
@@ -822,6 +822,10 @@
         {
             "name": "catalog",
             "description": "Catalog"
+        },
+        {
+            "name": "product",
+            "description": "Product"
         }
     ]
 }
