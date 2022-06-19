@@ -30,8 +30,9 @@ class ProductApiController extends Controller
     #[OpenApi\Response(factory: ProductsListResponse::class, statusCode: 200)]
     #[OpenApi\Response(factory: ErrorCatalogResponse::class, statusCode: 422)]
     #[OpenApi\Parameters(factory: ProductsListParameters::class)]
-    public function index(Request $request) {
-        $slug = $request->query('category_slug');
+    public function index(CatalogApiRequest $request) {
+        $requestData = $request->validated();;
+        $slug = $requestData['category_slug'];
         $query = ProductCategory::query()->with('children', 'products');
 
         if ($slug === null) {
