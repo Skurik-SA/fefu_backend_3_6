@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ListProductResource;
 use App\Http\Resources\DetailedProductResource;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Vyuldashev\LaravelOpenApi\Attributes as OpenApi;
 use App\OpenApi\Parameters\ProductsListParameters;
 use App\OpenApi\Parameters\ProductDetailsParameters;
@@ -22,7 +24,7 @@ class ProductApiController extends Controller
 {
     /**
      * @param Request $request
-     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     * @return JsonResponse|AnonymousResourceCollection
      */
     #[OpenApi\Operation(tags: ["catalog"])]
     #[OpenApi\Response(factory: ProductsListResponse::class, statusCode: 200)]
