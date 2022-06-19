@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\AppealApiController;
 use App\Http\Controllers\Api\AuthApiController;
+use App\Http\Controllers\Api\CartController;
 use App\Http\Controllers\Api\CatalogApiController;
 use App\Http\Controllers\Api\NewsApiController;
 use App\Http\Controllers\Api\PageApiController;
@@ -47,6 +48,11 @@ Route::apiResource('page', PageApiController::class)->only([
 Route::apiResource('appeal', AppealApiController::class)->only([
     'store',
 ]);
+
+Route::prefix('cart')->middleware('auth.optional:sanctum')->group(function () {
+    Route::post('set_quantity', [CartController::class, 'set_quantity']);
+    Route::get('show', [CartController::class, 'show']);
+});
 
 Route::apiResource('catalog', CatalogApiController::class)->only([
     'index',
