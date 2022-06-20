@@ -31,7 +31,6 @@ Route::get('/', function () {
 Route::get('catalog/product/{slug}', [ProductWebController::class, 'index'])->name('product');
 Route::get('catalog/{slug?}', [CatalogController::class, 'index'])->name('catalog');
 
-
 Route::get('/checkout', [ OrderController::class, 'index'])->middleware('auth')->name('checkout.get');
 Route::post('/checkout', [ OrderController::class, 'store'])->middleware('auth')->name('checkout.post');
 
