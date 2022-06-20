@@ -96,6 +96,11 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+        'github_id',
+        'vkontakte_id',
+        'google_id',
+        'app_logged_in_at',
+        'app_registered_at',
     ];
 
     /**
@@ -122,6 +127,15 @@ class User extends Authenticatable
         $user->email = $requestedData['email'];
         $user->app_registered_at = Carbon::now();
         $user->password = Hash::make($requestedData['password']);
+        $user->save();
+
+        return $user;
+    }
+
+    public static function changeFromRequest(User $user, array $requestedData) : self {
+        $user->password = Hash::make($requestedData['password']);
+        $user->app_logged_in_at = Carbon::now();
+        $user->app_registered_at = Carbon::now();
         $user->save();
 
         return $user;

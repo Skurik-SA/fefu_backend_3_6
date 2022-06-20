@@ -21,7 +21,7 @@ class DetailedProductResource extends JsonResource
             'name' => $this->name,
             'price' => $this->price,
             'description' => $this->description,
-            'characteristics' => AttributeValuesResources::collection(
+            'characteristics' => AtributeValuesResources::collection(
                 $this->sortedAttributeValues
             ),
         ];
