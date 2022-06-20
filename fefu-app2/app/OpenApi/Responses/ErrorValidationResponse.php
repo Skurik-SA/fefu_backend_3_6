@@ -9,6 +9,9 @@ use Vyuldashev\LaravelOpenApi\Factories\ResponseFactory;
 
 class ErrorValidationResponse extends ResponseFactory
 {
+    /**
+     * @return Response
+     */
     public function build(): Response
     {
         $response = Schema::object()->properties(

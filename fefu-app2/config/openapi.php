@@ -47,10 +47,15 @@ return [
                     'name' => 'catalog',
                     'description' => 'Catalog',
                 ],
-              
+
                 [
                     'name' => 'product',
                     'description' => 'Product',
+                ],
+
+                [
+                    'name' => 'cart',
+                    'description' => 'Cart',
                 ],
             ],
 
