@@ -28,8 +28,8 @@ class CartController extends Controller
      */
     #[OpenApi\Operation(tags: ['cart'], method: 'POST')]
     #[OpenApi\Response(factory: ShowCartResponse::class, statusCode: 200)]
-//    #[OpenApi\Response(factory: CartErrorValidationResponse::class, statusCode: 422)]
     #[OpenApi\RequestBody(factory: ModificationsCartRequestBody::class)]
+    #[OpenApi\Response(factory: CartErrorValidationResponse::class, statusCode: 422)]
     public function set_quantity(CartModificationRequest $request): CartResource
     {
         $data = $request->validated('modifications');
