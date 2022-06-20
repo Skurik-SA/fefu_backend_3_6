@@ -57,6 +57,11 @@ return [
                     'name' => 'cart',
                     'description' => 'Cart',
                 ],
+
+                [
+                    'name' => 'orders',
+                    'description' => 'Orders',
+                ],
             ],
 
             'security' => [

@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\AuthApiController;
 use App\Http\Controllers\Api\CartController;
 use App\Http\Controllers\Api\CatalogApiController;
 use App\Http\Controllers\Api\NewsApiController;
+use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\PageApiController;
 use App\Http\Controllers\Api\ProductApiController;
 use Illuminate\Http\Request;
@@ -58,6 +59,8 @@ Route::apiResource('catalog', CatalogApiController::class)->only([
     'index',
     'show',
 ]);
+
+Route::post('/order/store', [ OrderController::class, 'store']);
 
 Route::post('login', [AuthApiController::class, 'login']);
 Route::post('registration', [AuthApiController::class, 'registration']);
