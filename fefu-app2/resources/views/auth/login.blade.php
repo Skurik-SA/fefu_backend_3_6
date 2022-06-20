@@ -27,5 +27,8 @@
         <input type="submit"/>
     </div>
 </form>
+<a href="{{route('oauth.redirect', ['provider' => 'github'])}}">Авторизоваться через GitHub</a><br/>
+<a href="{{route('oauth.redirect', ['provider' => 'vkontakte'])}}">Авторизоваться через ВК</a><br/>
+<a href="{{route('oauth.redirect', ['provider' => 'google'])}}">Авторизоваться через  Google</a><br/>
 </body>
 </html>

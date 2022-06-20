@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginApiRequest;
 use App\Http\Requests\RegistrationApiRequest;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -58,6 +59,8 @@ class AuthApiController extends Controller
 
         /** @var $user User */
         $user = Auth::user();
+        $user->app_logged_in_at = Carbon::now();
+        $user->save();
         $authToken = $user->createToken('authToken')->plainTextToken;
         return response()->json([
             'access_token' => $authToken,
@@ -94,7 +97,16 @@ class AuthApiController extends Controller
     public function registration(RegistrationApiRequest $request)
     {
         $data = $request->validated();
-        $user = User::createFromRequest($data);
+
+        $user = User::query()->where('email', $data['email'])->first();
+        if ($user)
+        {
+            $user = User::changeFromRequest($user, $data);
+        }
+        else
+        {
+            $user = User::createFromRequest($data);
+        }
 
         $authToken = $user->createToken('authToken')->plainTextToken;
 
