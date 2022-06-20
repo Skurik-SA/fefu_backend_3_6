@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Cviebrock\EloquentSluggable\Sluggable;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -12,12 +13,12 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * App\Models\Product
  *
  * @property int $id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
  * @property string $name
  * @property string $slug
  * @property string $description
  * @property float $price
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
  * @property int $product_category_id
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\ProductAttributeValue[] $attributeValues
  * @property-read int|null $attribute_values_count
@@ -25,19 +26,20 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\ProductAttributeValue[] $sortedAttributeValues
  * @property-read int|null $sorted_attribute_values_count
  * @method static \Database\Factories\ProductFactory factory(...$parameters)
- * @method static \Illuminate\Database\Eloquent\Builder|Product findSimilarSlugs(string $attribute, array $config, string $slug)
- * @method static \Illuminate\Database\Eloquent\Builder|Product newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Product newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Product query()
- * @method static \Illuminate\Database\Eloquent\Builder|Product whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Product whereDescription($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Product whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Product whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Product wherePrice($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Product whereProductCategoryId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Product whereSlug($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Product whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Product withUniqueSlugConstraints(\Illuminate\Database\Eloquent\Model $model, string $attribute, array $config, string $slug)
+ * @method static Builder|Product findSimilarSlugs(string $attribute, array $config, string $slug)
+ * @method static Builder|Product newModelQuery()
+ * @method static Builder|Product newQuery()
+ * @method static Builder|Product query()
+ * @method static Builder|Product search(string $searchQuery)
+ * @method static Builder|Product whereCreatedAt($value)
+ * @method static Builder|Product whereDescription($value)
+ * @method static Builder|Product whereId($value)
+ * @method static Builder|Product whereName($value)
+ * @method static Builder|Product wherePrice($value)
+ * @method static Builder|Product whereProductCategoryId($value)
+ * @method static Builder|Product whereSlug($value)
+ * @method static Builder|Product whereUpdatedAt($value)
+ * @method static Builder|Product withUniqueSlugConstraints(\Illuminate\Database\Eloquent\Model $model, string $attribute, array $config, string $slug)
  * @mixin \Eloquent
  */
 class Product extends Model
@@ -61,7 +63,7 @@ class Product extends Model
     {
         return $this->belongsTo(ProductCategory::class);
     }
-
+  
     public function attributeValues(): HasMany
     {
         return $this->hasMany(ProductAttributeValue::class);
@@ -74,5 +76,9 @@ class Product extends Model
             ->join('product_attributes', 'product_attributes.id', '=', 'product_attribute_values.product_attribute_id')
             ->orderBy('product_attributes.sort_order')
             ->orderBy('product_attributes.id');
+    }
+
+    public function scopeSearch(Builder $builder, string $searchQuery) : Builder{
+        return $builder->where('products.name', 'ilike', "%$searchQuery%");
     }
 }

@@ -2,7 +2,7 @@
     "openapi": "3.0.2",
     "info": {
         "title": "Laravel",
-        "version": "0.0.1"
+        "version": "9.1.1"
     },
     "servers": [
         {
@@ -49,15 +49,48 @@
         "\/api\/catalog\/product\/list": {
             "get": {
                 "tags": [
-                    "catalog"
+                    "product"
                 ],
+                "summary": "Returning a list of products by slug.",
                 "parameters": [
                     {
                         "name": "category_slug",
                         "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "search_query",
+                        "in": "query",
                         "required": false,
                         "schema": {
                             "type": "string"
+                        }
+                    },
+                    {
+                        "name": "sort_mode",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "filters",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "array"
+                        }
+                    },
+                    {
+                        "name": "filters.*",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "array"
                         }
                     }
                 ],
@@ -112,8 +145,9 @@
         "\/api\/catalog\/product\/details": {
             "get": {
                 "tags": [
-                    "catalog"
+                    "product"
                 ],
+                "summary": "Returning a product resource by the requested slug",
                 "parameters": [
                     {
                         "name": "product_slug",
@@ -788,6 +822,10 @@
         {
             "name": "catalog",
             "description": "Catalog"
+        },
+        {
+            "name": "product",
+            "description": "Product"
         }
     ]
 }

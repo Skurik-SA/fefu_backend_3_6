@@ -18,7 +18,7 @@ class ProductCategorySeeder extends Seeder
     public function run()
     {
         ProductCategory::query()->delete();
-        $this->seedChildren(ProductCategory::factory(random_int(1, 4))->create()->pluck('id'));
+        $this->seedChildren(ProductCategory::factory(random_int(1, 3))->create()->pluck('id'));
     }
 
     private function seedChildren(iterable $parentIds, int $depth = 1): void
@@ -30,7 +30,7 @@ class ProductCategorySeeder extends Seeder
         foreach ($parentIds as $parentId)
         {
             $this->seedChildren(
-                ProductCategory::factory(random_int(1, 4))->child($parentId)->create()->pluck('id'),
+                ProductCategory::factory(random_int(1, 3))->child($parentId)->create()->pluck('id'),
                 ++$depth);
         }
     }
