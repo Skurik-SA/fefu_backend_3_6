@@ -17,11 +17,8 @@ class CartErrorValidationResponse extends ResponseFactory
         return Response::unprocessableEntity()->content(
             MediaType::json()->schema(
                 Schema::object()->properties(
-                    Schema::string('message')
-                        ->example('The modifications field is required'),
-
-                    Schema::array('errors')
-                        ->properties(
+                    Schema::string('message')->example('The modifications field is required'),
+                    Schema::array('errors')->properties(
                             Schema::array('modifications')->example([
                                 "The modifications field is required"
                             ]),

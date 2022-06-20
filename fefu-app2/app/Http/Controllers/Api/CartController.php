@@ -11,6 +11,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\OpenApi\Responses\ShowCartResponse;
+use App\OpenApi\RequestBodies\ModificationsCartRequestBody;
 use App\OpenApi\Responses\CartErrorValidationResponse;
 use Illuminate\Support\Facades\Auth;
 use Vyuldashev\LaravelOpenApi\Attributes as OpenApi;
@@ -20,12 +21,15 @@ class CartController extends Controller
 {
 
     /**
+     * Add/delete products to/from cart or set quantity
+     *
      * @param CartModificationRequest $request
      * @return CartResource
      */
     #[OpenApi\Operation(tags: ['cart'], method: 'POST')]
     #[OpenApi\Response(factory: ShowCartResponse::class, statusCode: 200)]
-    #[OpenApi\Response(factory: CartErrorValidationResponse::class, statusCode: 422)]
+//    #[OpenApi\Response(factory: CartErrorValidationResponse::class, statusCode: 422)]
+    #[OpenApi\RequestBody(factory: ModificationsCartRequestBody::class)]
     public function set_quantity(CartModificationRequest $request): CartResource
     {
         $data = $request->validated('modifications');
@@ -49,14 +53,14 @@ class CartController extends Controller
      }
 
     /**
+     * Get cart by user or session id
+     *
      * @return CartResource
      */
     #[OpenApi\Operation(tags: ['cart'], method: 'GET')]
     #[OpenApi\Response(factory: ShowCartResponse::class, statusCode: 200)]
     public function show(): CartResource
     {
-        /** @var User $user */
-        $user = Auth::user();
-        return CartResource::make(Cart::getOrCreateCart($user, session()->getId()));
+        return CartResource::make(Cart::getOrCreateCart(Auth::user(), session()->getId()));
     }
 }
