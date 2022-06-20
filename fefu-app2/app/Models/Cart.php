@@ -42,16 +42,28 @@ class Cart extends Model
         'session_id', 'user_id', 'price_total'
     ];
 
+    /**
+     * @return HasMany
+     */
     public function items() : HasMany
     {
         return $this->hasMany(CartItem::class);
     }
 
+    /**
+     * @return HasMany
+     */
     public function orderedItems(): HasMany
     {
         return $this->items()->orderBy('id');
     }
 
+    /**
+     * @param User|null $user
+     * @param string|null $sessionId
+     * @return Cart|null
+     * @throws Exception
+     */
     public static function getCart(?User $user, ?string $sessionId): ?Cart
     {
         if ($user === null && $sessionId === null) {
@@ -70,6 +82,11 @@ class Cart extends Model
         return $query->first();
     }
 
+    /**
+     * @param User|null $user
+     * @param string|null $sessionId
+     * @return Cart
+     */
     public static function createEmptyCart(?User $user, ?string $sessionId): Cart
     {
         $cart = new self();
@@ -79,6 +96,12 @@ class Cart extends Model
         return $cart;
     }
 
+    /**
+     * @param User|null $user
+     * @param string|null $sessionId
+     * @return Cart
+     * @throws Exception
+     */
     public static function getOrCreateCart(?User $user, ?string $sessionId): Cart
     {
         return self::getCart($user, $sessionId) ?? self::createEmptyCart($user, $sessionId);
@@ -95,6 +118,10 @@ class Cart extends Model
         }
     }
 
+    /**
+     * @param Product $product
+     * @param int $quantity
+     */
     public function setProductQuantity(Product $product, int $quantity): void
     {
         $this->fillItemsByProductId();
@@ -122,6 +149,17 @@ class Cart extends Model
             $this->price_total += $cartItem->price_total;
         }
     }
+
+    /**
+     * @return bool
+     */
+    public function isEmpty(): bool
+    {
+        $this->fillItemsByProductId();
+
+        return count($this->itemsByProductId) == 0;
+    }
+
 
     public function save(array $options = []): void
     {

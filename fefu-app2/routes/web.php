@@ -6,6 +6,7 @@ use App\Http\Controllers\Web\CartController;
 use App\Http\Controllers\Web\CatalogController;
 use App\Http\Controllers\Web\NewsWebController;
 use App\Http\Controllers\Web\OAuthController;
+use App\Http\Controllers\Web\OrderController;
 use App\Http\Controllers\Web\PageWebController;
 use App\Http\Controllers\Web\ProductWebController;
 use App\Http\Controllers\Web\ProfileController;
@@ -30,6 +31,10 @@ Route::get('/', function () {
 Route::get('catalog/product/{slug}', [ProductWebController::class, 'index'])->name('product');
 Route::get('catalog/{slug?}', [CatalogController::class, 'index'])->name('catalog');
 
+
+Route::get('/checkout', [ OrderController::class, 'index'])->middleware('auth')->name('checkout.get');
+Route::post('/checkout', [ OrderController::class, 'store'])->middleware('auth')->name('checkout.post');
+
 Route::prefix('oauth')->group(function () {
     Route::get('/{provider}/redirect', [OAuthController::class, 'redirectToService'])->name('oauth.redirect');
     Route::get('/{provider}/login', [OAuthController::class, 'login'])->name('oauth.login');
@@ -53,5 +58,4 @@ Route::post('/appeal', [AppealWebController::class, 'send'])->name('appeal.send'
 Route::get('/{slug}', PageWebController::class);
 
 Route::get('/news/{slug}', NewsWebController::class);
-
 
