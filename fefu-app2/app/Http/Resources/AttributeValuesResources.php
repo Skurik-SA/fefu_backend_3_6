@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use JsonSerializable;
 
-class DetailedProductResource extends JsonResource
+class AttributeValuesResources extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -18,12 +18,8 @@ class DetailedProductResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'name' => $this->name,
-            'price' => $this->price,
-            'description' => $this->description,
-            'characteristics' => AtributeValuesResources::collection(
-                $this->sortedAttributeValues
-            ),
+            'name' => $this->productAttribute->name,
+            'value' => $this->value,
         ];
     }
 }
