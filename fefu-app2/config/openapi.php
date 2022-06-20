@@ -57,7 +57,6 @@ return [
                     'name' => 'cart',
                     'description' => 'Cart',
                 ],
-
             ],
 
             'security' => [
