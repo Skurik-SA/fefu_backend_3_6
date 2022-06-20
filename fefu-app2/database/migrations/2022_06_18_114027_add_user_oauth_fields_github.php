@@ -29,7 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-
         Schema::table('users', function (Blueprint $table) {
             $help = false;
             $table->string('email')->nullable($help)->change();
